@@ -168,6 +168,7 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\Startup.Auth.cs" />
     <Compile Include="Controllers\AccountController.cs" />
+    <Compile Include="Controllers\AdminController.cs" />
     <Compile Include="Controllers\HomeController.cs" />
     <Compile Include="Controllers\ManageController.cs" />
     <Compile Include="Controllers\StudentController.cs" />
@@ -202,12 +203,51 @@
     <Compile Include="Migrations\202104120942368_f7.Designer.cs">
       <DependentUpon>202104120942368_f7.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104121953482_aa.cs" />
+    <Compile Include="Migrations\202104121953482_aa.Designer.cs">
+      <DependentUpon>202104121953482_aa.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122054133_a2.cs" />
+    <Compile Include="Migrations\202104122054133_a2.Designer.cs">
+      <DependentUpon>202104122054133_a2.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122141411_a3.cs" />
+    <Compile Include="Migrations\202104122141411_a3.Designer.cs">
+      <DependentUpon>202104122141411_a3.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122203583_a4.cs" />
+    <Compile Include="Migrations\202104122203583_a4.Designer.cs">
+      <DependentUpon>202104122203583_a4.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122216391_a5.cs" />
+    <Compile Include="Migrations\202104122216391_a5.Designer.cs">
+      <DependentUpon>202104122216391_a5.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122220209_a6.cs" />
+    <Compile Include="Migrations\202104122220209_a6.Designer.cs">
+      <DependentUpon>202104122220209_a6.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122224228_a7.cs" />
+    <Compile Include="Migrations\202104122224228_a7.Designer.cs">
+      <DependentUpon>202104122224228_a7.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122228471_a8.cs" />
+    <Compile Include="Migrations\202104122228471_a8.Designer.cs">
+      <DependentUpon>202104122228471_a8.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104122241283_a81.cs" />
+    <Compile Include="Migrations\202104122241283_a81.Designer.cs">
+      <DependentUpon>202104122241283_a81.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
+    <Compile Include="Models\Classe.cs" />
+    <Compile Include="Models\Enrollment.cs" />
     <Compile Include="Models\IdentityModels.cs" />
     <Compile Include="Models\Instructor.cs" />
     <Compile Include="Models\ManageViewModels.cs" />
+    <Compile Include="Models\MVVC\EnrollmentStudent.cs" />
     <Compile Include="Models\Student.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Startup.cs" />
@@ -343,6 +383,8 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\Shared\_layout2.cshtml" />
     <Content Include="Views\Student\Index.cshtml" />
+    <Content Include="Views\Admin\Index.cshtml" />
+    <Content Include="Views\Admin\NewEnrollment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -381,6 +423,33 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104120942368_f7.resx">
       <DependentUpon>202104120942368_f7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104121953482_aa.resx">
+      <DependentUpon>202104121953482_aa.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122054133_a2.resx">
+      <DependentUpon>202104122054133_a2.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122141411_a3.resx">
+      <DependentUpon>202104122141411_a3.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122203583_a4.resx">
+      <DependentUpon>202104122203583_a4.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122216391_a5.resx">
+      <DependentUpon>202104122216391_a5.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122220209_a6.resx">
+      <DependentUpon>202104122220209_a6.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122224228_a7.resx">
+      <DependentUpon>202104122224228_a7.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122228471_a8.resx">
+      <DependentUpon>202104122228471_a8.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104122241283_a81.resx">
+      <DependentUpon>202104122241283_a81.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

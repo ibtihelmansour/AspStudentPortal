@@ -9,8 +9,8 @@ namespace AspStudentPortal.Models
     public class Student : ApplicationUser
     {
         
-        public DateTime? dateOfbirth { get; set;  }
-        public string address { get; set;  }
+       
+        public virtual ICollection<Enrollment> Enrollments { get; set; }
     }
 
 

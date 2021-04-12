@@ -1,4 +1,5 @@
-﻿using System.Data.Entity;
+﻿using System;
+using System.Data.Entity;
 using System.Security.Claims;
 using System.Threading.Tasks;
 using Microsoft.AspNet.Identity;
@@ -9,6 +10,8 @@ namespace AspStudentPortal.Models
     // Vous pouvez ajouter des données de profil pour l'utilisateur en ajoutant d'autres propriétés à votre classe ApplicationUser. Pour en savoir plus, consultez https://go.microsoft.com/fwlink/?LinkID=317594.
     public class ApplicationUser : IdentityUser
     {
+        public DateTime? dateOfbirth { get; set; }
+        public string address { get; set; }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
@@ -27,7 +30,9 @@ namespace AspStudentPortal.Models
         public DbSet<Student> students { get; set; }
         public DbSet<Admin> admins { get; set; }
         public DbSet<Instructor> instructors { get; set; }
-       
+        public DbSet<Classe> classes { get; set; }
+        public DbSet<Enrollment> enrollments { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();
