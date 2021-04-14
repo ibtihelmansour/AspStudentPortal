@@ -1,0 +1,49 @@
+﻿@model IEnumerable<AspStudentPortal.Models.Enrollment>
+
+@{
+    ViewBag.Title = "ListEnrollment";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+<div class="container" style="padding : 80px 0 ; margin-left : 20%">
+    <h2>ListEnrollment</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "NewEnrollment" , "Admin")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.dateEnrollment)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.ClasseId)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.studentId)
+            </th>
+            <th></th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.dateEnrollment)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.ClasseId)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.studentId)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.id })
+                </td>
+            </tr>
+        }
+
+    </table>
+</div>

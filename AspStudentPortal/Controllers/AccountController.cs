@@ -156,10 +156,10 @@ namespace AspStudentPortal.Controllers
         {
             if (ModelState.IsValid)
             {
-                var user = new ApplicationUser { UserName = model.Email, Email = model.Email };
-                var student = new Student { UserName = model.Email, Email = model.Email };
-                var admin = new Admin { UserName = model.Email, Email = model.Email };
-                var instructor = new Instructor { UserName = model.Email, Email = model.Email };
+                var user = new ApplicationUser { UserName = model.Username, Email = model.Email, address = model.Address, gender = model.gender, dateOfbirth = model.dateOfbirth, PhoneNumber = model.PhoneNumber };
+                var student = new Student { UserName = model.Username, Email = model.Email, address = model.Address, gender = model.gender, dateOfbirth = model.dateOfbirth, PhoneNumber = model.PhoneNumber  };
+                var admin = new Admin { UserName = model.Username, Email = model.Email, address = model.Address, gender = model.gender, dateOfbirth = model.dateOfbirth, PhoneNumber = model.PhoneNumber };
+                var instructor = new Instructor { UserName = model.Username, Email = model.Email, address = model.Address, gender = model.gender, dateOfbirth = model.dateOfbirth, PhoneNumber = model.PhoneNumber };
                 if (model.Roles.Equals("Admins"))
                 {
                     user = admin; 
@@ -184,12 +184,22 @@ namespace AspStudentPortal.Controllers
                     // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
                     // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.Roles);
-                    return RedirectToAction("Index", "Home");
+                    if(model.Roles.Equals("Admins")) {
+                        return RedirectToAction("ListAdmin", "Admin");
+                    }else if (model.Roles.Equals("Students"))
+                    {
+                        return RedirectToAction("ListStudent", "Admin");
+                    }
+                    else
+                    {
+                        return RedirectToAction("ListInstructor", "Admin");
+                    }
+
+
                 }
                 ViewBag.Roles = new SelectList(_db.Roles.ToList(), "Name", "Name");
                 AddErrors(result);
             }
-
             // Si nous sommes arrivés là, un échec s’est produit. Réafficher le formulaire
             return View(model);
         }

@@ -1,4 +1,5 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations;
 
 namespace AspStudentPortal.Models
@@ -70,10 +71,29 @@ namespace AspStudentPortal.Models
         [Required]
         [Display(Name = "Group")]
         public string Roles { get; set; }
+
+       [Required]
+        [Phone]
+        [Display(Name = "Phone")]
+        public string PhoneNumber { get; set; }
+
+        [Required]
+        [Display(Name = "Gender")]
+        public string gender { get; set; }
         [Required]
         [EmailAddress]
-        [Display(Name = "Courrier électronique")]
+        [Display(Name = "Email")]
         public string Email { get; set; }
+
+        [Required]
+        [Display(Name = "Date of birth")]
+        public DateTime? dateOfbirth { get; set; }
+        [Required]
+        [Display(Name = "Address")]
+        public string Address{ get; set; }
+       
+       
+        public string Id { get; set; }
 
         [Required]
         [StringLength(100, ErrorMessage = "La chaîne {0} doit comporter au moins {2} caractères.", MinimumLength = 6)]

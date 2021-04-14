@@ -55,10 +55,57 @@ namespace AspStudentPortal.Controllers
              }*/
             _db.SaveChanges();
 
-            return RedirectToAction("Index", "Admin");
+            return RedirectToAction("ListEnrollment", "Admin");
+        }
+
+        public  ActionResult ListStudent()
+        {
+            var students = _db.students.ToList();
+            return View(students); 
+        }
+
+        public ActionResult ListInstructor()
+        {
+            var instructors = _db.instructors.ToList();
+            return View(instructors);
+        }
+        public ActionResult ListAdmin()
+        {
+            var admins = _db.admins.ToList();
+            return View(admins);
+        }
+        public ActionResult ListEnrollment()
+        {
+            var enrollments = _db.enrollments.ToList();
+            return View(enrollments);
+        }
+
+        [HttpGet]
+        public ActionResult Edit(int id)
+        {
+
+            var User = _db.Users.SingleOrDefault(c => c.Id.Equals(id));
+           
+            return View("Register" , "Account" , User);
 
         }
 
+      /*  public ActionResult EditForm(ApplicationUser model)
+        {
+            var user = _db.Users.Single(c => c.Id == model.Id);
+            user.UserName = model.UserName;
+            user.dateOfbirth = model.dateOfbirth;
+            user.Email = model.Email;
+            user.gender = model.gender;
+            user.address = model.address;
+            user.PhoneNumber = model.PhoneNumber;
+            _db.SaveChanges();
+            return RedirectToAction("Index", "Admin");
 
-    }
+        }
+       */
+    
+
+
+}
 }

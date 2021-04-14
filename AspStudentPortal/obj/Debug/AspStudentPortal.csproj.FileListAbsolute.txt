@@ -142,3 +142,5 @@ C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStude
 C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStudentPortal.Migrations.a7.resources
 C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStudentPortal.Migrations.a8.resources
 C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStudentPortal.Migrations.a81.resources
+C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStudentPortal.Migrations.gender.resources
+C:\Users\ibtih\source\repos\AspStudentPortal\AspStudentPortal\obj\Debug\AspStudentPortal.Migrations.mm.resources

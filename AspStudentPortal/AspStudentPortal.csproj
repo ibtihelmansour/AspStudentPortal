@@ -239,6 +239,14 @@
     <Compile Include="Migrations\202104122241283_a81.Designer.cs">
       <DependentUpon>202104122241283_a81.cs</DependentUpon>
     </Compile>
+    <Compile Include="Migrations\202104131157278_gender.cs" />
+    <Compile Include="Migrations\202104131157278_gender.Designer.cs">
+      <DependentUpon>202104131157278_gender.cs</DependentUpon>
+    </Compile>
+    <Compile Include="Migrations\202104131221599_mm.cs" />
+    <Compile Include="Migrations\202104131221599_mm.Designer.cs">
+      <DependentUpon>202104131221599_mm.cs</DependentUpon>
+    </Compile>
     <Compile Include="Migrations\Configuration.cs" />
     <Compile Include="Models\AccountViewModels.cs" />
     <Compile Include="Models\Admin.cs" />
@@ -385,6 +393,10 @@
     <Content Include="Views\Student\Index.cshtml" />
     <Content Include="Views\Admin\Index.cshtml" />
     <Content Include="Views\Admin\NewEnrollment.cshtml" />
+    <Content Include="Views\Admin\ListStudent.cshtml" />
+    <Content Include="Views\Admin\ListInstructor.cshtml" />
+    <Content Include="Views\Admin\ListAdmin.cshtml" />
+    <Content Include="Views\Admin\ListEnrollment.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
@@ -450,6 +462,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="Migrations\202104122241283_a81.resx">
       <DependentUpon>202104122241283_a81.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104131157278_gender.resx">
+      <DependentUpon>202104131157278_gender.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Migrations\202104131221599_mm.resx">
+      <DependentUpon>202104131221599_mm.cs</DependentUpon>
     </EmbeddedResource>
   </ItemGroup>
   <PropertyGroup>

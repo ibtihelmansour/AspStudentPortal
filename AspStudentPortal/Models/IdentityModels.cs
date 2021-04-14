@@ -12,6 +12,7 @@ namespace AspStudentPortal.Models
     {
         public DateTime? dateOfbirth { get; set; }
         public string address { get; set; }
+        public string gender { get; set;  }
         public async Task<ClaimsIdentity> GenerateUserIdentityAsync(UserManager<ApplicationUser> manager)
         {
             // Notez qu'authenticationType doit correspondre à l'élément défini dans CookieAuthenticationOptions.AuthenticationType
