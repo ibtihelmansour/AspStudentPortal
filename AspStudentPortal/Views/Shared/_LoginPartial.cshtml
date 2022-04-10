@@ -4,19 +4,51 @@
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
     {
     @Html.AntiForgeryToken()
+ 
+<div class="profile_details">
+    <ul>
+        <li class="dropdown profile_details_drop">
+            <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
+                <div class="profile_img">
+                    <!--span class="prfil-img"><img src="~/images/2.jpg" alt=""> </!-span-->
+                    <div class="user-name">
+                        <p>@Html.Label(User.Identity.GetUserName())</p>
+                        @if (User.IsInRole("Admins"))
+                        {
+                            <span>Admin</span>
+                        }
+                        else if (User.IsInRole("Students"))
+                        {
+                            <span>Student</span>
 
-    <ul class="nav navbar-nav navbar-right">
-        <li>
-            @Html.ActionLink("Hello " + User.Identity.GetUserName() + "!", "Index", "Manage", routeValues: null, htmlAttributes: new { title = "Manage" })
+                        }
+                        else if (User.IsInRole("Instructors"))
+                        {
+                            <span>Instructor</span>
+                        }
+
+                    </div>
+                    <i class="fa fa-angle-down lnr"></i>
+                    <i class="fa fa-angle-up lnr"></i>
+                    <div class="clearfix"></div>
+                </div>
+            </a>
+            <ul class="dropdown-menu drp-mnu">
+
+                <li> <a href="../Manage/Index"><i class="fa fa-cog"></i> Change password</a> </li>
+                <li> <a href="#"><i class="fa fa-user"></i> My Account</a> </li>
+               
+                <li >
+
+                   
+                    @Html.ActionLink("  Profil", "Profil", "Student" , new { @class= "fa fa-suitcase dropdown-item drp-item" , @style= "colors= #629aa9"} )
+                </li>
+                <li><a href="javascript:document.getElementById('logoutForm').submit()"><i class="fa fa-sign-out"></i>Logout</a></li>
+            </ul>
         </li>
-        <li><a href="javascript:document.getElementById('logoutForm').submit()">Se déconnecter</a></li>
+       
+
     </ul>
-    }
+ </div>
 }
-else
-{
-    <ul class="nav navbar-nav navbar-right">
-        <li>@Html.ActionLink("S'inscrire", "Register", "Account", routeValues: null, htmlAttributes: new { id = "registerLink" })</li>
-        <li>@Html.ActionLink("Se connecter", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
-    </ul>
 }

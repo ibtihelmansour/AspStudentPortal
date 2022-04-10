@@ -1,0 +1,48 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+    @if (Request.IsAuthenticated)
+    {
+
+        AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+        List<AspStudentPortal.Models.ApplicationUser> list = db.Users.ToList();
+        foreach (var user in list)
+        {
+            if (user.Id == User.Identity.GetUserId())
+            {
+                @Html.AntiForgeryToken()
+
+
+
+                <div id="page-wrapper">
+                    <div class="main-page">
+                        <h2 class="title1">Your profil</h2>
+                        <div class="blank-page widget-shadow scroll" style="width: 350px;margin-left : 30%" >
+
+                            <h4> @Html.DisplayName("Username : ") </h4>
+                            <span>@Html.DisplayFor(modelItem => user.UserName) </span>
+                            <h4> @Html.DisplayName("Phone number : ") </h4>
+                            <span>@Html.DisplayFor(modelItem => user.PhoneNumber) </span>
+                            <h4> @Html.DisplayName("Email : ") </h4>
+                            <span>@Html.DisplayFor(modelItem => user.Email) </span>
+                            <h4> @Html.DisplayName("Address : ") </h4>
+                            <span>@Html.DisplayFor(modelItem => user.address) </span>
+                            <h4> @Html.DisplayName("Date of Birth : ") </h4>
+                            <span>@Html.DisplayFor(modelItem => user.dateOfbirth) </span>
+
+                        </div>
+                    </div>
+                </div>
+
+
+            }
+        }
+    }
+
+
+

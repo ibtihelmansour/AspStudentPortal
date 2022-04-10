@@ -1,0 +1,74 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+
+    AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+    List<AspStudentPortal.Models.Student> list = db.students.ToList();
+    List<AspStudentPortal.Models.Enrollment> listEnroll = db.enrollments.ToList();
+    List<AspStudentPortal.Models.SchoolBranch> schoolBranches = db.schoolBranches.ToList();
+    foreach (var user in list)
+    {
+
+        if (user.Id == User.Identity.GetUserId())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div id="page-wrapper">
+               
+                    <h2 class="title1">Your enrollment</h2>
+                    <table class="table">
+                        <tr>
+
+                            <th>
+                                @Html.DisplayName("Date of Enrollment")
+                            </th>
+                            <th>
+                                @Html.DisplayName("school branch")
+                            </th>
+                            <th>
+                                @Html.DisplayName("classe")
+                            </th>
+                        </tr>
+
+                        @foreach (var item in user.Enrollments)
+                        {
+                          
+                                    <tr>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.dateEnrollment)
+                                        </td>
+                                        <td>
+                                            @foreach (var sb in schoolBranches)
+                                            {
+                                                if (sb.classes.Contains(item.classe))
+                                                {
+                                                    @Html.DisplayFor(modelItem => item.classe.schoolBranch.name)
+                                                }
+                                            }
+
+
+                                        </td>
+
+                                        <td>
+                                            @Html.DisplayFor(modelItem => item.classe.nameClasse)
+                                        </td>
+
+
+                                    </tr>
+                        }
+
+                    </table>
+                </div>
+               
+        }
+    }
+}

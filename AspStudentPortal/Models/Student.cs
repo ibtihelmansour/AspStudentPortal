@@ -11,6 +11,7 @@ namespace AspStudentPortal.Models
         
        
         public virtual ICollection<Enrollment> Enrollments { get; set; }
+       // public Classe classe { get; set;  }
     }
 
 

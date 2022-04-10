@@ -105,5 +105,10 @@ namespace AspStudentPortal
         {
             return new ApplicationSignInManager(context.GetUserManager<ApplicationUserManager>(), context.Authentication);
         }
+
+        internal Task CreateUserIdentity(ApplicationUser user, bool isPersistent, bool rememberBrowser)
+        {
+            throw new NotImplementedException();
+        }
     }
 }

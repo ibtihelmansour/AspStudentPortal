@@ -8,8 +8,9 @@ namespace AspStudentPortal.Models.MVVC
     public class EnrollmentStudent
     {
         public Enrollment enrollment { get; set; }
+        public IEnumerable<Classe> classes { get; set; }
         public IEnumerable<Student> Students { get; set; }
-        public IEnumerable<Classe> Classes { get; set; }
+        //public IEnumerable<SchoolBranch> SchoolBranches { get; set; }
 
     }
 }

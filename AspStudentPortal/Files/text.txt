@@ -1,0 +1,465 @@
+//admin
+namespace HotelBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ */
+
+
+class Admin
+{   /**
+ * @ORM\Id()
+ * @ORM\GeneratedValue()
+ * @ORM\Column(type="integer")
+ */
+    private $id;
+
+
+}
+//user
+<?php
+namespace HotelBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * @ORM\Entity
+ */
+
+class User
+{
+    /**
+     * @ORM\Id()
+     * @ORM\GeneratedValue()
+     * @ORM\Column(type="integer")
+     */
+    private $id;
+
+    /**
+     * @ORM\Column(type="string", length=180, unique=true)
+     */
+    private $email;
+
+    /**
+     * @var string The hashed password
+     * @ORM\Column(type="string")
+     */
+    private $password;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $name;
+
+    /**
+     * @ORM\Column(type="string", length=20, nullable=true)
+     */
+    private $surname;
+
+    /**
+     * @return mixed
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * @param mixed $id
+     * @return User
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getEmail()
+    {
+        return $this->email;
+    }
+
+    /**
+     * @param mixed $email
+     * @return User
+     */
+    public function setEmail($email)
+    {
+        $this->email = $email;
+        return $this;
+    }
+
+    /**
+     * @return string
+     */
+    public function getPassword()
+    {
+        return $this->password;
+    }
+
+    /**
+     * @param string $password
+     * @return User
+     */
+    public function setPassword($password)
+    {
+        $this->password = $password;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getName()
+    {
+        return $this->name;
+    }
+
+    /**
+     * @param mixed $name
+     * @return User
+     */
+    public function setName($name)
+    {
+        $this->name = $name;
+        return $this;
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getSurname()
+    {
+        return $this->surname;
+    }
+
+    /**
+     * @param mixed $surname
+     * @return User
+     */
+    public function setSurname($surname)
+    {
+        $this->surname = $surname;
+        return $this;
+    }
+
+
+
+
+
+    }
+
+//reservation
+<?php
+namespace ResaBundle\Entity;
+
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Reservation
+ *
+ * @ORM\Table(name="Reservation", indexes={@ORM\Index(name="FK_Reservation_Id", columns={"Id"}), @ORM\Index(name="FK_Reservation_Id_Hotel", columns={"Id_Hotel"})})
+ * @ORM\Entity
+ */
+class Reservation
+{
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateArrivee", type="date", nullable=false)
+     */
+    private $datearrivee;
+
+    /**
+     * @var \DateTime
+     *
+     * @ORM\Column(name="dateDepart", type="date", nullable=false)
+     */
+    private $datedepart;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="IdReservation", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="IDENTITY")
+     */
+    private $idreservation;
+
+    /**
+     * @var \HotelBundle\Entity\Chambre
+     *
+     * @ORM\ManyToOne(targetEntity="ResaBundle\Entity\Chambre")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Id", referencedColumnName="Id")
+     * })
+     */
+    private $id;
+
+    /**
+     * @var \HotelBundle\Entity\Hotel
+     *
+     * @ORM\ManyToOne(targetEntity="HotelBundle\Entity\Hotel")
+     * @ORM\JoinColumns({
+     *   @ORM\JoinColumn(name="Id_User", referencedColumnName="id")
+     * })
+     */
+    private $idUser;
+
+
+    /**
+     * Set datearrivee
+     *
+     * @param \DateTime $datearrivee
+     *
+     * @return Reservation
+     */
+    public function setDatearrivee($datearrivee)
+    {
+        $this->datearrivee = $datearrivee;
+
+        return $this;
+    }
+
+    /**
+     * Get datearrivee
+     *
+     * @return \DateTime
+     */
+    public function getDatearrivee()
+    {
+        return $this->datearrivee;
+    }
+
+    /**
+     * Set datedepart
+     *
+     * @param \DateTime $datedepart
+     *
+     * @return Reservation
+     */
+    public function setDatedepart($datedepart)
+    {
+        $this->datedepart = $datedepart;
+
+        return $this;
+    }
+
+    /**
+     * Get datedepart
+     *
+     * @return \DateTime
+     */
+    public function getDatedepart()
+    {
+        return $this->datedepart;
+    }
+
+    /**
+     * Get idreservation
+     *
+     * @return integer
+     */
+    public function getIdreservation()
+    {
+        return $this->idreservation;
+    }
+
+    /**
+     * Set id
+     *
+     * @param \HotelBundle\Entity\Chambre $id
+     *
+     * @return Reservation
+     */
+    public function setId(\HotelBundle\Entity\Chambre $id = null)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return \HotelBundle\Entity\Chambre
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+    /**
+     * Set idHotel
+     *
+     * @param \HotelBundle\Entity\User $idUser
+     *
+     * @return Reservation
+     */
+    public function setIdHotel(\ResaBundle\Entity\Hotel $idUser = null)
+    {
+        $this->idUser= $idUser;
+
+        return $this;
+    }
+
+    /**
+     * Get idUser
+     *
+     * @return \HotelBundle\Entity\User
+     */
+    public function getIdUser()
+    {
+        return $this->idUser;
+    }
+}
+<?php
+
+
+namespace HotelBundle\Entity;
+use Doctrine\ORM\Mapping as ORM;
+
+/**
+ * Chambre
+ * @ORM\Entity
+ */
+class Chambre
+{
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="numChambre", type="integer", nullable=false)
+     */
+    private $numchambre;
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Places", type="integer", nullable=false)
+     */
+    private $places;
+
+    /**
+     * @var boolean
+     *
+     * @ORM\Column(name="Reservee", type="boolean", nullable=true)
+     */
+    private $reservee;
+
+
+
+    /**
+     * @var integer
+     *
+     * @ORM\Column(name="Id", type="integer")
+     * @ORM\Id
+     * @ORM\GeneratedValue(strategy="NONE")
+     */
+    private $id;
+
+
+
+
+    /**
+     * Set numchambre
+     *
+     * @param integer $numchambre
+     *
+     * @return Chambre
+     */
+    public function setNumchambre($numchambre)
+    {
+        $this->numchambre = $numchambre;
+
+        return $this;
+    }
+
+    /**
+     * Get numchambre
+     *
+     * @return integer
+     */
+    public function getNumchambre()
+    {
+        return $this->numchambre;
+    }
+
+    /**
+     * Set places
+     *
+     * @param integer $places
+     *
+     * @return Chambre
+     */
+    public function setPlaces($places)
+    {
+        $this->places = $places;
+
+        return $this;
+    }
+
+    /**
+     * Get places
+     *
+     * @return integer
+     */
+    public function getPlaces()
+    {
+        return $this->places;
+    }
+
+    /**
+     * Set reservee
+     *
+     * @param boolean $reservee
+     *
+     * @return Chambre
+     */
+    public function setReservee($reservee)
+    {
+        $this->reservee = $reservee;
+
+        return $this;
+    }
+
+    /**
+     * Get reservee
+     *
+     * @return boolean
+     */
+    public function getReservee()
+    {
+        return $this->reservee;
+    }
+
+
+
+    /**
+     * Set id
+     *
+     * @param integer $id
+     *
+     * @return Chambre
+     */
+    public function setId($id)
+    {
+        $this->id = $id;
+
+        return $this;
+    }
+
+    /**
+     * Get id
+     *
+     * @return integer
+     */
+    public function getId()
+    {
+        return $this->id;
+    }
+
+
+}

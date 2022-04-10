@@ -1,0 +1,103 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+
+    AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+    List<AspStudentPortal.Models.Student> list = db.students.ToList();
+    List<AspStudentPortal.Models.Enrollment> listEnroll = db.enrollments.ToList();
+    List<AspStudentPortal.Models.SchoolBranch> schoolBranches = db.schoolBranches.ToList();
+    foreach (var user in list)
+    {
+
+        if (user.Id == User.Identity.GetUserId())
+        {
+
+            @Html.AntiForgeryToken()
+
+<div id="page-wrapper">
+
+    <h2 class="title1">Courses</h2>
+    <table class="table">
+        <tr>
+
+
+            <th>
+                @Html.DisplayName("course name")
+            </th>
+            <th>
+                @Html.DisplayName("coef")
+            </th>
+            <th>
+                @Html.DisplayName("Instructor")
+            </th>
+            <th>
+                @Html.DisplayName("Document")
+            </th>
+
+        </tr>
+
+
+
+        @foreach (var item in user.Enrollments)
+        {
+            foreach (var sb in schoolBranches)
+            {
+                if (sb.classes.Contains(item.classe))
+                {
+                    foreach (var course in item.classe.schoolBranch.courses)
+                    {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => course.CourseName)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => course.coef)
+
+        </td>
+        <td>
+            @foreach (var ins in (db.instructors.ToList()))
+            {
+                if ((ins.Id).Equals(course.instructor.Id))
+                {
+                    @Html.DisplayFor(modelItem => course.instructor.UserName)
+                }
+
+            }
+
+
+        </td>
+        <td>
+            @Html.ActionLink("download", "download", "Instructor")
+
+        </td>
+    </tr>
+
+
+                    }
+
+
+
+                }
+            }
+
+
+
+
+
+
+
+        }
+    </table>
+    </div>
+
+        }
+    }
+}

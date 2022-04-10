@@ -1,0 +1,84 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+
+    AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+    List<AspStudentPortal.Models.Student> list = db.students.ToList();
+    List<AspStudentPortal.Models.Classe> listclasse = db.classes.ToList();
+    List<AspStudentPortal.Models.SchoolBranch> schoolBranches = db.schoolBranches.ToList();
+    foreach (var user in list)
+    {
+
+        if (user.Id == User.Identity.GetUserId())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div id="page-wrapper">
+                <h2 class="title1">School branch</h2>
+                <table class="table">
+                    <tr style="background-color: darkgrey">
+
+
+                        <th>
+                            @Html.DisplayName("School branch")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Level")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Courses")
+                        </th>
+
+
+                    </tr>
+
+
+
+                    @foreach (var item in user.Enrollments)
+                    {
+                        foreach (var sb in schoolBranches)
+                        {
+                            if (sb.classes.Contains(item.classe))
+                            {
+                                
+                                
+                                    <tr>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => sb.name)
+
+                                        </td>
+                                        <td>
+                                            @Html.DisplayFor(modelItem => sb.level)
+
+                                        </td>
+                                      
+                                        <td>
+                                            @Html.ActionLink(" ", "studentCourses", "Student" , new { @class = "btn btn-success fa fa-list"  })
+
+                                        </td>
+                                    </tr>
+
+
+                                }
+
+
+
+                            }
+                        }
+
+
+
+                </table>
+            </div>
+
+        }
+    }
+}

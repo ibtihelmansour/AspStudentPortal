@@ -1,0 +1,90 @@
+﻿@model IEnumerable<AspStudentPortal.Models.Course>
+
+@{
+    ViewBag.Title = "ListCourse";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+<div class="container" style="padding : 80px 0 ; margin-left : 20%">
+    <h2>List Courses </h2>
+
+    <p>
+        @Html.ActionLink("Create New", "NewCourse", "Admin")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.CourseName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.coef)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.schoolBranch.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.schoolBranch.level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.instructor.UserName)
+            </th>
+
+
+            <th> Edit </th>
+            <th>Delete </th>
+           
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.CourseName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.coef)
+        </td>
+
+        @{
+
+            AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+            List<AspStudentPortal.Models.SchoolBranch> listschool = db.schoolBranches.ToList();
+            List<AspStudentPortal.Models.Instructor> list = db.instructors.ToList();
+            foreach (var branch in listschool)
+            {
+                if (branch.id == item.SchoolBranchId)
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => branch.name)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => branch.level)
+                    </td>
+                }
+            }
+
+
+            foreach (var user in list)
+            {
+                if ((user.Id).Equals(item.instructorId))
+                {
+                    <td>
+                        @Html.DisplayFor(modelItem => user.UserName)
+                    </td>
+                }
+            }
+        }
+
+        <td>
+            @Html.ActionLink("Edit", "EditCourse", "Admin", new { id = item.id }, null)
+        </td>
+        <td>
+            @Html.ActionLink("Delete", "DeleteCourse", "Admin", new { id = item.id }, null)
+        </td>
+       
+    </tr>
+        }
+
+    </table>
+</div>
+

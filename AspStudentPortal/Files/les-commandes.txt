@@ -1,0 +1,4 @@
+les commandes utilisés:
+flex MansourIbtihel-glsiB.l
+gcc lex.yy.c
+a.exe

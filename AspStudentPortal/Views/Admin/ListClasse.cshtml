@@ -1,0 +1,47 @@
+﻿@model IEnumerable<AspStudentPortal.Models.Classe>
+
+@{
+    ViewBag.Title = "ListClasse";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+<div class="container" style="padding : 80px 0 ; margin-left : 20%">
+    <h2>ListClasse</h2><br/>
+    <p>
+        @Html.ActionLink("Create New", "NewClasse" , "Admin")
+    </p>
+    <table class="table">
+        <tr>
+
+            <th>
+                @Html.DisplayNameFor(model => model.nameClasse)
+            </th>
+            <th>
+                @Html.DisplayName("Branch school" )
+            </th>
+            <th>
+                Delete
+            </th>
+            <th>
+                Edit
+            </th>
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.nameClasse)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.schoolBranchId)
+        </td>
+
+        <td><a href="">@Html.ActionLink(" ", "DeleteClasse", "Admin", new { id = item.id }, new { @class = "btn btn-danger fa fa-trash", onclick = "return confirm('Are you sure you wish to delete this class');" })</a></td>
+        <td><a href="">@Html.ActionLink(" ", "EditClasse", "Admin", new { id = item.id }, new { @class = "btn btn-warning fa fa-refresh" })</a></td>
+    </tr>
+        }
+
+    </table>
+    </div>

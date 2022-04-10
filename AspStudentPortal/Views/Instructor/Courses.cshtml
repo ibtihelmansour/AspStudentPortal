@@ -1,0 +1,71 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutInstructor.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+
+    AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+    List<AspStudentPortal.Models.Instructor> list = db.instructors.ToList();
+ 
+    foreach (var user in list)
+    {
+        if (user.Id == User.Identity.GetUserId())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div id="page-wrapper">
+                <h2 class="title1">School branch</h2>
+                <table class="table">
+                    <tr style="background-color: darkgrey">
+
+
+                        <th>
+                            @Html.DisplayName("School branch")
+                        </th>
+                        <th>
+                            @Html.DisplayName("Level")
+                        </th>
+                     
+
+
+                    </tr>
+
+
+
+                    @foreach (var item in user.courses)
+                    {
+                     
+
+
+                                <tr>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.CourseName)
+
+                                    </td>
+                                    <td>
+                                        @Html.DisplayFor(modelItem => item.coef)
+
+                                    </td>
+
+                                </tr>
+
+
+                            }
+
+
+
+                      
+
+
+                </table>
+            </div>
+
+        }
+    }
+}

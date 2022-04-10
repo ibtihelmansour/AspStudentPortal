@@ -34,39 +34,43 @@
             <th>
                 @Html.DisplayNameFor(model => model.gender)
             </th>
-            
+
             <th>
                 Delete
+            </th>
+            <th>
+                Update  
             </th>
         </tr>
 
         @foreach (var item in Model)
         {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.Email)
-                </td>
+    <tr>
+        <td>
+            @Html.DisplayFor(modelItem => item.Email)
+        </td>
 
-                <td>
-                    @Html.DisplayFor(modelItem => item.PhoneNumber)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.UserName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.dateOfbirth)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.address)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.gender)
-                </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.PhoneNumber)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.UserName)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.dateOfbirth)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.address)
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.gender)
+        </td>
 
-                
-                <td><a href="">@Html.ActionLink("Delete", "Delete", "Admin", new { idCustomer = item.Id }, new { @class = "btn btn-danger", onclick = "return confirm('Are you sure you wish to delete this student');" })</a></td>
 
-            </tr>
+        <td><a href="">@Html.ActionLink(" ", "DeleteUser", "Admin", new { idUser = item.Id }, new { @class = "btn btn-danger fa fa-trash", onclick = "return confirm('Are you sure you wish to delete this Instructor');" })</a></td>
+        <td><a href="">@Html.ActionLink(" ", "Edit", "Account", new { idUser = item.Id }, new { @class = "btn btn-warning fa fa-refresh" })</a></td>
+
+    </tr>
         }
 
     </table>

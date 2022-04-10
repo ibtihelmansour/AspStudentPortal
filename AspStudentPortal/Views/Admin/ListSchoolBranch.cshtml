@@ -1,0 +1,50 @@
+﻿@model IEnumerable<AspStudentPortal.Models.SchoolBranch>
+
+@{
+    ViewBag.Title = "ListSchoolBranch";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+<div class="container" style="padding : 80px 0 ; margin-left : 20%">
+    <h2>List of School Branch</h2>
+
+    <p>
+        @Html.ActionLink("Create New", "NewSchoolBranch", "Admin")
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.name)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.level)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.courses)
+            </th>
+            <th> Delete </th>
+            <th> Edit </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+    <tr>
+
+        <td>
+            @Html.DisplayFor(modelItem => item.name)
+
+        </td>
+        <td>
+            @Html.DisplayFor(modelItem => item.level)
+        </td>
+       
+        <td><a href="">@Html.ActionLink(" ", "BranchSchoolByCourses", "Admin", new { id = item.id }, new { @class = "btn btn-success fa fa-list" })</a></td>
+        <td><a href="">@Html.ActionLink(" ", "DeleteSchoolBranch", "Admin", new { id = item.id }, new { @class = "btn btn-danger fa fa-trash", onclick = "return confirm('Are you sure you wish to delete this Branch School');" })</a></td>
+        <td><a href="">@Html.ActionLink(" ", "EditSchoolBranch", "Admin", new { id = item.id }, new { @class = "btn btn-warning fa fa-refresh" })</a></td>
+    </tr>
+        }
+
+    </table>
+    </div>

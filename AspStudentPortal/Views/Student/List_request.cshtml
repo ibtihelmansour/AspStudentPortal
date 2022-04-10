@@ -1,0 +1,39 @@
+﻿@model IEnumerable<AspStudentPortal.Models.Demand>
+
+@{
+    ViewBag.Title = "List_request";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
+}
+
+<div id="page-wrapper">
+
+    <h2 class="title1">Requests </h2>
+    <p>
+        @Html.ActionLink("Create New", "NewRequest" , "Student" )
+    </p>
+    <table class="table">
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.subject)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.description)
+            </th>
+
+        </tr>
+
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.subject)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.description)
+                </td>
+
+            </tr>
+        }
+
+    </table>
+    </div>

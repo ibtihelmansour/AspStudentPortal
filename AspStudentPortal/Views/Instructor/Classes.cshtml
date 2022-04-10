@@ -1,0 +1,78 @@
+﻿@using Microsoft.AspNet.Identity
+@model AspStudentPortal.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Profil";
+    Layout = "~/Views/Shared/_LayoutInstructor.cshtml";
+}
+
+@if (Request.IsAuthenticated)
+{
+
+    AspStudentPortal.Models.ApplicationDbContext db = new AspStudentPortal.Models.ApplicationDbContext();
+    List<AspStudentPortal.Models.Instructor> list = db.instructors.ToList();
+    List<AspStudentPortal.Models.Classe> listclasse = db.classes.ToList();
+    List<AspStudentPortal.Models.SchoolBranch> schoolBranches = db.schoolBranches.ToList();
+    foreach (var user in list)
+    {
+        if (user.Id == User.Identity.GetUserId())
+        {
+
+            @Html.AntiForgeryToken()
+
+            <div id="page-wrapper">
+                <h2 class="title1">School branch</h2>
+                <table class="table">
+                    <tr style="background-color: darkgrey">
+
+
+                        <th>
+                            @Html.DisplayName("School branch")
+                        </th>
+                        <th>
+                            @Html.DisplayName("classes")
+                        </th>
+
+
+
+                    </tr>
+
+
+
+                    @foreach (var item in user.courses)
+                    {
+
+                        foreach (var classe in item.schoolBranch.classes)
+                        {
+
+
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => classe.schoolBranch.name)
+
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => classe.nameClasse)
+
+                    </td>
+
+
+                </tr>
+                        }
+
+
+
+
+                    }
+
+
+
+
+
+
+                </table>
+            </div>
+
+        }
+    }
+}

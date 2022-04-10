@@ -9,7 +9,14 @@ namespace AspStudentPortal.Models
     {
         public int id { get; set; }
         public string nameClasse { get; set; }
-        public virtual ICollection<Enrollment> Enrollments { get; set; }
+     
+        public virtual ICollection<Enrollment> enrollments { get; set; }
 
+
+        public int schoolBranchId { get; set;  }
+        public SchoolBranch schoolBranch { get; set;  }
+
+
+       
     }
 }

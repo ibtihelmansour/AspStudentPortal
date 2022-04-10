@@ -33,6 +33,14 @@ namespace AspStudentPortal.Models
         public DbSet<Instructor> instructors { get; set; }
         public DbSet<Classe> classes { get; set; }
         public DbSet<Enrollment> enrollments { get; set; }
+    
+        public DbSet<SchoolBranch> schoolBranches { get; set; }
+        public DbSet<Course> courses { get; set; }
+        public DbSet<ObjFile> objfiles { get; set; }
+        public DbSet<Demand> demands { get; set; }
+
+
+        //public DbSet<paymentMethod> paymentMethods { get; set; }
 
         public static ApplicationDbContext Create()
         {

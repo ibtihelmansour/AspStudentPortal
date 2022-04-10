@@ -9,10 +9,11 @@ using Microsoft.AspNet.Identity;
 using Microsoft.AspNet.Identity.Owin;
 using Microsoft.Owin.Security;
 using AspStudentPortal.Models;
+using System.Configuration;
 
 namespace AspStudentPortal.Controllers
 {
-    [Authorize]
+    [Authorize(Roles ="Admins")]
     public class AccountController : Controller
     {
         private ApplicationSignInManager _signInManager;
@@ -64,7 +65,7 @@ namespace AspStudentPortal.Controllers
             ViewBag.ReturnUrl = returnUrl;
             return View();
         }
-
+      
         //
         // POST: /Account/Login
         [HttpPost]
@@ -72,14 +73,47 @@ namespace AspStudentPortal.Controllers
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Login(LoginViewModel model, string returnUrl)
         {
-            if (!ModelState.IsValid)
+            if (ModelState.IsValid)
             {
-                return View(model);
+                var user = await UserManager.FindAsync(model.Username, model.Password);
+                if (user != null)
+                {
+                    await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
+                    if (String.IsNullOrEmpty(returnUrl))
+                    {
+                        if (UserManager.IsInRole(user.Id, "Students"))
+                        {
+                            return RedirectToAction("Index", "Student");
+                        }
+                        //role Admin go to Admin page
+                        if (UserManager.IsInRole(user.Id, "Admins"))
+                        {
+                            return RedirectToAction("Index", "Admin");
+                        }
+                        if (UserManager.IsInRole(user.Id, "Instructors"))
+                        {
+                            return RedirectToAction("Index", "Instructor");
+                        }
+                    }
+                    else
+                    {
+                        return RedirectToLocal(returnUrl);
+                    }
+                }
+                else
+                {
+                    ModelState.AddModelError("", "Invalid username or password.");
+                }
             }
 
-            // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
-            // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
-            var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
+            // If we got this far, something failed, redisplay form
+            return View(model);
+        }
+
+
+        // Ceci ne comptabilise pas les échecs de connexion pour le verrouillage du compte
+        // Pour que les échecs de mot de passe déclenchent le verrouillage du compte, utilisez shouldLockout: true
+       /* var result = await SignInManager.PasswordSignInAsync(model.Username, model.Password, model.RememberMe, shouldLockout: false);
             switch (result)
             {
                 case SignInStatus.Success:
@@ -93,7 +127,7 @@ namespace AspStudentPortal.Controllers
                     ModelState.AddModelError("", "Tentative de connexion non valide.");
                     return View(model);
             }
-        }
+        }*/
 
         //
         // GET: /Account/VerifyCode
@@ -140,17 +174,69 @@ namespace AspStudentPortal.Controllers
 
         //
         // GET: /Account/Register
-        [AllowAnonymous]
+        [Authorize(Roles = "Admins")]
         public ActionResult Register()
         {
             ViewBag.Roles = new SelectList(_db.Roles.ToList(), "Name", "Name");
             return View();
         }
 
+
+
+        /*****************************************************************/
+     
+        [HttpPost]
+        [Authorize(Roles = "Admins")]
+        public ActionResult Update(ApplicationUser user)
+        {
+          
+            if (ModelState.IsValid)
+            {
+                if (user.Id != null ) {
+                    var userdb = _db.Users.Single(c => c.Id.Equals(user.Id));
+                    userdb.Email = user.Email;
+                    userdb.dateOfbirth = user.dateOfbirth;
+                    userdb.UserName = user.UserName;
+                    userdb.address = user.address;
+                    userdb.gender = userdb.gender;
+                    userdb.PhoneNumber = user.PhoneNumber;  
+                }
+             
+            }
+
+            _db.SaveChanges();
+
+          /*  Student student = new Student();
+            Instructor instructor = new Instructor();
+            Admin admin = new Admin(); 
+            if (user == _db.students)
+            {
+                return RedirectToAction("ListStudent", "Admin");
+            } else if (user == instructor)
+            {
+                return RedirectToAction("ListInstructor", "Admin");
+            }else
+            {
+                return RedirectToAction("ListAdmin", "Admin");
+            }*/
+
+           return RedirectToAction("Index", "Admin");
+
+        }
+        [HttpGet]
+        [Authorize(Roles = "Admins")]
+        public ActionResult Edit(string idUser)
+        {
+
+            var user = _db.Users.SingleOrDefault(c => c.Id.Equals(idUser));
+
+            return View("Edit", user);
+        }
+        /*****************************************************************/
         //
         // POST: /Account/Register
         [HttpPost]
-        [AllowAnonymous]
+        [Authorize(Roles = "Admins")]
         [ValidateAntiForgeryToken]
         public async Task<ActionResult> Register(RegisterViewModel model)
         {
@@ -176,13 +262,13 @@ namespace AspStudentPortal.Controllers
                     var result = await UserManager.CreateAsync(user, model.Password);
                 if (result.Succeeded)
                 {
-                    await SignInManager.SignInAsync(user, isPersistent: false, rememberBrowser: false);
+                    SignInManager.CreateUserIdentity(user);
 
                     // Pour plus d'informations sur l'activation de la confirmation de compte et de la réinitialisation de mot de passe, visitez https://go.microsoft.com/fwlink/?LinkID=320771
                     // Envoyer un message électronique avec ce lien
-                    // string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
-                    // var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
-                    // await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
+                    string code = await UserManager.GenerateEmailConfirmationTokenAsync(user.Id);
+                    var callbackUrl = Url.Action("ConfirmEmail", "Account", new { userId = user.Id, code = code }, protocol: Request.Url.Scheme);
+                    await UserManager.SendEmailAsync(user.Id, "Confirmez votre compte", "Confirmez votre compte en cliquant <a href=\"" + callbackUrl + "\">ici</a>");
                     await this.UserManager.AddToRoleAsync(user.Id, model.Roles);
                     if(model.Roles.Equals("Admins")) {
                         return RedirectToAction("ListAdmin", "Admin");
@@ -357,7 +443,7 @@ namespace AspStudentPortal.Controllers
             var loginInfo = await AuthenticationManager.GetExternalLoginInfoAsync();
             if (loginInfo == null)
             {
-                return RedirectToAction("Login");
+                return RedirectToAction("Index");
             }
 
             // Connecter cet utilisateur à ce fournisseur de connexion externe si l'utilisateur possède déjà une connexion
@@ -424,7 +510,7 @@ namespace AspStudentPortal.Controllers
         public ActionResult LogOff()
         {
             AuthenticationManager.SignOut(DefaultAuthenticationTypes.ApplicationCookie);
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Login", "Account");
         }
 
         //
@@ -480,8 +566,21 @@ namespace AspStudentPortal.Controllers
             if (Url.IsLocalUrl(returnUrl))
             {
                 return Redirect(returnUrl);
+
             }
-            return RedirectToAction("Index", "Home");
+           /* else if (User.IsInRole("Admins"))
+            {
+                return RedirectToAction("Index", "Admin");
+            }
+            else if (User.IsInRole("Students"))
+            {
+                return RedirectToAction("Index", "Student");
+            }*/
+            else     
+                {
+                return RedirectToAction("Index", "Admin");
+            }
+             
         }
 
         internal class ChallengeResult : HttpUnauthorizedResult

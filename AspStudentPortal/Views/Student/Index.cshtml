@@ -1,8 +1,33 @@
 ﻿
 @{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_layout2.cshtml";
+    Layout = "~/Views/Shared/_LayoutStudent.cshtml";
 }
 
-<h2>Index</h2>
 
+
+   
+    <!-- calendar -->
+    <div class="col-md-12 agile-calendar">
+        <div class="calendar-widget" style=" width: 700px ;  margin-left: 30% ">
+            <header class="widget-header">
+                <h4 class="widget-title">Calender widget</h4>
+            </header>
+            <hr class="widget-separator">
+            <!-- grids -->
+            <div class="agile-calendar-grid">
+                <div class="page">
+
+                    <div class="w3l-calendar-left">
+                        <div class="calendar-heading">
+
+                        </div>
+                        <div class="monthly" id="mycalendar"></div>
+                    </div>
+
+                    <div class="clearfix"> </div>
+                </div>
+            </div>
+        </div>
+    </div>
+  

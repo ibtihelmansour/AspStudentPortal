@@ -1,0 +1,52 @@
+﻿@model AspStudentPortal.Models.MVVC.CourseInstructorMvvc
+
+@{
+    ViewBag.Title = "New Course";
+    Layout = "~/Views/Shared/_layout2.cshtml";
+}
+
+
+<div id="page-wrapper">
+    <div class="main-page login-page ">
+        <h2 class="title1">Add course </h2>
+        <div class="widget-shadow">
+            <div class="login-body">
+                @using (Html.BeginForm("CreateCourse", "Admin", FormMethod.Post, new { @class = "form-horizontal", role = "form" }))
+                {
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.course.CourseName)
+                        @Html.TextBoxFor(m => m.course.CourseName, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.course.coef)
+                        @Html.TextBoxFor(m => m.course.coef, new { @class = "form-control" })
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.course.instructor, "instructorId")
+                        @Html.DropDownListFor(m => m.course.instructorId, new SelectList(Model.instructors, "Id", "Username"), "select Instructor", new { @class = "form-control" })
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.LabelFor(m => m.course.schoolBranch)
+
+                        @Html.DropDownListFor(m => m.course.SchoolBranchId, new SelectList(Model.schoolBranches, "id", "name"), "select school Branch", new { @class = "form-control" })
+
+
+
+
+                    </div>
+                    <div class="form-group">
+                        @Html.HiddenFor(m => m.course.id)
+                        <input type="submit" value="Save">
+                    </div>
+
+
+                }
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
